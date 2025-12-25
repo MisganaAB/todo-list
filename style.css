@@ -34,7 +34,8 @@ body {
   margin: 0 auto;
 }
 
-.form-check-label {
+.form-check {
+  margin-top: 10px;
   color: var(--text-color);
   font-weight: 600;
 }
