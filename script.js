@@ -265,9 +265,29 @@ editInput.addEventListener("keypress", (e) => {
   }
 });
 
-const darkmode = document.querySelector("form-check-input");
-
-darkmode.addEventListener("click", function () {
-  if (darkmode.checked) {
+//Apply dark mode functionality
+let darkmode = localStorage.getItem("darkmode");
+const themeSwitch = document.getElementById("switchCheckDefault");
+const enableDarkmode = () => {
+  document.body.classList.add('darkmode');
+  themeSwitch.checked = true;
+  localStorage.setItem('darkmode', 'active');
+}
+enableDarkmode();
+const disableDarkmode = () => {
+  document.body.classList.remove('darkmode');
+  themeSwitch.checked = false;
+  localStorage.removeItem('darkmode');
+}
+if(darkmode === 'active'){
+  enableDarkmode();
+}
+themeSwitch.addEventListener("change", () => {
+  darkmode = localStorage.getItem('darkmode');
+  if (themeSwitch.checked) {
+    enableDarkmode();
+  } else {
+    disableDarkmode();
   }
 });
+
