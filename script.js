@@ -267,11 +267,16 @@ editInput.addEventListener("keypress", (e) => {
   }
 });
 
+<<<<<<< HEAD
 // Apply Darkmode
+=======
+//Apply dark mode functionality
+>>>>>>> f4815ac6beec9aa686395ed829f978ee9a303e02
 let darkmode = localStorage.getItem("darkmode");
 const themeSwitch = document.getElementById("switchCheckDefault");
 const enableDarkmode = () => {
   document.body.classList.add('darkmode');
+<<<<<<< HEAD
   if (themeSwitch) themeSwitch.checked = true;
   localStorage.setItem('darkmode', 'active');
 }
@@ -404,3 +409,26 @@ function addCategory(){
 function capitalize(text){
   return text[0].toUpperCase() + text.slice(1);
 }
+=======
+  themeSwitch.checked = true;
+  localStorage.setItem('darkmode', 'active');
+}
+enableDarkmode();
+const disableDarkmode = () => {
+  document.body.classList.remove('darkmode');
+  themeSwitch.checked = false;
+  localStorage.removeItem('darkmode');
+}
+if(darkmode === 'active'){
+  enableDarkmode();
+}
+themeSwitch.addEventListener("change", () => {
+  darkmode = localStorage.getItem('darkmode');
+  if (themeSwitch.checked) {
+    enableDarkmode();
+  } else {
+    disableDarkmode();
+  }
+});
+
+>>>>>>> f4815ac6beec9aa686395ed829f978ee9a303e02

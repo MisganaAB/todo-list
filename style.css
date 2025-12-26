@@ -9,7 +9,11 @@
   --bg-color: #f5f5f5;
   --text-color: #333;
   --input-bg: #fff;
+<<<<<<< HEAD
   --input-text: #2b2a2a;
+=======
+  --input-text: #333;
+>>>>>>> f4815ac6beec9aa686395ed829f978ee9a303e02
   --btn-bg: linear-gradient(135deg, #00d4ff, #7b68ee, #cc00ff);
   --btn-text: #fff;
   --edit-input-border: #e0e0e0;
@@ -18,7 +22,11 @@
   --bg-color: #1e1e1e;
   --text-color: #f5f5f5;
   --input-bg: #2c2c2c;
+<<<<<<< HEAD
   --input-text: #dad9d9;
+=======
+  --input-text: #f5f5f5;
+>>>>>>> f4815ac6beec9aa686395ed829f978ee9a303e02
   --btn-bg: linear-gradient(135deg, #00a3b4, #5a4d9e, #9900b3);
   --btn-text: #f5f5f5;
   --edit-input-border: #565555;
@@ -41,7 +49,11 @@ main{
 }
 
 .form-check {
+<<<<<<< HEAD
   margin-top: 20px;
+=======
+  margin-top: 10px;
+>>>>>>> f4815ac6beec9aa686395ed829f978ee9a303e02
   color: var(--text-color);
   font-weight: 600;
 }
@@ -61,7 +73,10 @@ main{
 /* Input Box Styles */
 .todo-input-box {
   display: flex;
+<<<<<<< HEAD
   flex-wrap: wrap;
+=======
+>>>>>>> f4815ac6beec9aa686395ed829f978ee9a303e02
   background: var(--input-bg);
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
@@ -263,7 +278,11 @@ main{
 .modal.active {
   display: flex;
   background-color: var(--bg-color) 0.15;
+<<<<<<< HEAD
   -webkit-backdrop-filter: blur(1.5px);
+=======
+  -webkit-backdrop-filter: blur(1.7px);
+>>>>>>> f4815ac6beec9aa686395ed829f978ee9a303e02
   backdrop-filter: blur(1.7px);
 }
 
