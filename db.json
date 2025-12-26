@@ -1,39 +1,32 @@
 {
   "todos": [
     {
-      "id": "4",
-      "title": "Usability testing marketing",
-      "completed": false,
-      "category": "Personal",
-      "dueDate": "2024-12-20"
-    },
-    {
-      "id": "7996",
-      "title": "Test new todo",
-      "completed": false,
-      "category": "Personal",
-      "dueDate": "2024-12-20"
-    },
-    {
       "id": "18fd",
       "title": "Hello",
       "completed": false,
       "category": "Personal",
-      "dueDate": "2024-12-20"
+      "dueDate": "2024-12-25"
     },
     {
       "id": "349c",
       "title": "Call Halle",
       "completed": false,
-      "category": "Personal",
+      "category": "Work",
       "dueDate": "2024-12-20"
     },
     {
-      "id": "ec21",
-      "title": "Walk the cat",
+      "id": "b14f",
+      "title": "Buy Grocerry",
       "completed": false,
-      "dueDate": "2025-12-26",
-      "category": "Personal"
+      "dueDate": "2025-12-31",
+      "category": "Shopping"
+    },
+    {
+      "id": "ee13",
+      "title": "Study Web",
+      "completed": false,
+      "dueDate": "2025-12-31",
+      "category": "school"
     }
   ]
 }

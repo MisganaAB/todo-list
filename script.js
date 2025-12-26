@@ -20,6 +20,7 @@ let currentEditId = null;
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
+  renderCategories();
   fetchTodos();
 });
 
@@ -42,7 +43,7 @@ function renderTodos(todos) {
     const li = document.createElement("li");
     li.className = `todo-item ${todo.completed ? "completed" : ""}`;
     li.dataset.id = todo.id;
-    console.log(todo.title);
+    li.dataset.category = todo.category;
     li.innerHTML = `
             <span class="todo-text">${escapeHtml(todo.title)}</span>
             <span class="todo-text">${escapeHtml(todo.dueDate)}</span>
@@ -89,7 +90,6 @@ function escapeHtml(text) {
 // Add new todo
 async function addTodo(title, dueDate, category) {
   if (!title.trim()) return;
-  //   if (!title.trim()) return;
   if (!category.trim()) return;
 
   try {
@@ -192,6 +192,8 @@ async function saveEdit() {
       },
       body: JSON.stringify({
         title: editInput.value.trim(),
+        category: categoryEditInput.value,
+        dueDate: dateEditInput.value,
       }),
     });
 
@@ -265,9 +267,140 @@ editInput.addEventListener("keypress", (e) => {
   }
 });
 
-const darkmode = document.querySelector("form-check-input");
+// Apply Darkmode
+let darkmode = localStorage.getItem("darkmode");
+const themeSwitch = document.getElementById("switchCheckDefault");
+const enableDarkmode = () => {
+  document.body.classList.add('darkmode');
+  if (themeSwitch) themeSwitch.checked = true;
+  localStorage.setItem('darkmode', 'active');
+}
+const disableDarkmode = () => {
+  document.body.classList.remove('darkmode');
+  if (themeSwitch) themeSwitch.checked = false;
+  localStorage.removeItem('darkmode');
+}
+// Initialize based on stored preference
+if (darkmode === 'active') {
+  enableDarkmode();
+} else {
+  disableDarkmode();
+}
 
-darkmode.addEventListener("click", function () {
-  if (darkmode.checked) {
+if (themeSwitch) {
+  themeSwitch.addEventListener("change", () => {
+    if (themeSwitch.checked) {
+      enableDarkmode();
+    } else {
+      disableDarkmode();
+    }
+  });
+}
+
+// category filter buttons
+
+let currentFilter = 'All';
+
+function applyFilter(filter){
+    currentFilter = filter;
+    const buttons = document.querySelectorAll('.filter_btn');
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+    const items = document.querySelectorAll('.todo-item');
+    items.forEach(it => {
+        if (filter === 'All') {
+            it.style.display = '';
+            return;
+        }
+        it.style.display = (it.dataset.category === filter) ? '' : 'none';
+    });
+} 
+
+//add category
+const btn = document.getElementById('addCategoryBtn');
+if (btn) {
+  btn.addEventListener('click', addCategory);
+}
+
+function getCategoriesFromStorage(){
+  const raw = localStorage.getItem('categories');
+  if (raw) {
+    try { return JSON.parse(raw); } catch (e) { return []; }
   }
-});
+  if (categoryInput) {
+    const opts = Array.from(categoryInput.options).map(o => o.value).filter(Boolean);
+    localStorage.setItem('categories', JSON.stringify(opts));
+    return opts;
+  }
+  return [];
+}
+
+function saveCategoriesToStorage(categories){
+  localStorage.setItem('categories', JSON.stringify(categories));
+}
+
+function renderCategories(){
+  const categories = getCategoriesFromStorage();
+  const unique = Array.from(new Set(categories));
+
+  if (categoryInput) {
+    categoryInput.innerHTML = '<option value="" disabled selected>Choose Category</option>';
+    categoryEditInput.innerHTML = '<option value="" disabled>Choose Category</option>';
+    unique.forEach(cat => {
+      const opt = document.createElement('option');
+      opt.value = cat;
+      opt.textContent = capitalize(cat);
+      categoryInput.appendChild(opt);
+      categoryEditInput.appendChild(opt.cloneNode(true));
+    });
+  }
+
+  const btnContainer = document.querySelector('.category-filters');
+  if (!btnContainer) {
+    console.error('Category filters container not found');
+    return;
+  }
+
+  btnContainer.innerHTML = '';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'filter_btn';
+  allBtn.dataset.filter = 'All';
+  allBtn.textContent = 'All';
+  allBtn.addEventListener('click', () => applyFilter('All'));
+  btnContainer.appendChild(allBtn);
+
+  unique.forEach(cat => {
+    const b = document.createElement('button');
+    b.className = 'filter_btn';
+    b.dataset.filter = cat;
+    b.textContent = capitalize(cat);
+    b.addEventListener('click', () => applyFilter(cat));
+    btnContainer.appendChild(b);
+  });
+
+  applyFilter(currentFilter);
+}
+
+function addCategory(){
+  const newCategoryInput = document.getElementById('newCategoryId');
+  const newCategory = newCategoryInput ? newCategoryInput.value.trim().toLowerCase() : '';
+  if (newCategory === ''){
+    alert('Category name cannot be empty');
+    return;
+  }
+
+  const categories = getCategoriesFromStorage();
+  if (categories.includes(newCategory)){
+    alert('Category already exists');
+    return;
+  }
+
+  categories.push(newCategory);
+  saveCategoriesToStorage(categories);
+  renderCategories();
+  newCategoryInput.value = '';
+  if (currentFilter === newCategory) applyFilter(currentFilter);
+}
+
+function capitalize(text){
+  return text[0].toUpperCase() + text.slice(1);
+}

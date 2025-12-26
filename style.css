@@ -5,15 +5,45 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root{
+  --bg-color: #f5f5f5;
+  --text-color: #333;
+  --input-bg: #fff;
+  --input-text: #2b2a2a;
+  --btn-bg: linear-gradient(135deg, #00d4ff, #7b68ee, #cc00ff);
+  --btn-text: #fff;
+  --edit-input-border: #e0e0e0;
+}
+.darkmode {
+  --bg-color: #1e1e1e;
+  --text-color: #f5f5f5;
+  --input-bg: #2c2c2c;
+  --input-text: #dad9d9;
+  --btn-bg: linear-gradient(135deg, #00a3b4, #5a4d9e, #9900b3);
+  --btn-text: #f5f5f5;
+  --edit-input-border: #565555;
+}
 body {
-  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
   min-height: 100vh;
-  padding: 40px 20px;
 }
 
+main{
+  margin: 0 auto;
+  max-width: 700px;
+}
 .container {
+  background: var(--bg-color);
   max-width: 700px;
   margin: 0 auto;
+}
+
+.form-check {
+  margin-top: 20px;
+  color: var(--text-color);
+  font-weight: 600;
 }
 
 /* Title Styles */
@@ -31,13 +61,14 @@ body {
 /* Input Box Styles */
 .todo-input-box {
   display: flex;
-  background: #fff;
+  flex-wrap: wrap;
+  background: var(--input-bg);
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   margin-bottom: 20px;
   gap: 5px;
-  background-color: #f5f5f5;
+  background-color: var(--bg-color);
 }
 
 #dueDate {
@@ -51,8 +82,9 @@ body {
   outline: none;
   padding: 18px 20px;
   font-size: 1rem;
-  color: #333;
+  color: var(--input-text);
   border-radius: 12px;
+  background-color: var(--input-bg);
 }
 
 .todo-input::placeholder {
@@ -62,17 +94,32 @@ body {
 .save-btn {
   border: none;
   border-radius: 12px;
-  padding: 18px 35px;
+  width: 100px;
   font-size: 1rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--btn-text);
   cursor: pointer;
-  background: linear-gradient(135deg, #00d4ff, #7b68ee, #cc00ff);
+  background: var(--btn-bg);
   transition: opacity 0.3s ease;
+  padding: 18px 20px;
+}
+.todo-input-box div {
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .save-btn:hover {
   opacity: 0.9;
+}
+
+#newCatCon {
+  width: 100%;
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
+
+#newCategoryId{
+  min-width: 80%;
 }
 
 /* Stats Styles */
@@ -85,7 +132,7 @@ body {
 .stat-item {
   flex: 1;
   padding: 12px 20px;
-  background: #fff;
+  background: var(--input-bg);
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.95rem;
@@ -101,17 +148,49 @@ body {
   color: #7b68ee;
   border: 1px solid #ccc;
 }
+/* Category Filter Styles */
+.category-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding: 6px 8px;
+    flex-wrap: wrap;
+}
+.filter_btn.active {
+    background: var(--btn-bg);
+    color: var(--text-color);
+}
+.filter_btn {
+    background-color: var(--input-bg);
+    border: 1px solid #e6e6e6;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--input-text);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    transition: all 160ms ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.filter_btn:hover {
+  transform: translateY(-5px);
+  background-color: var(--btn-bg);
+}
 
 /* Todo List Styles */
 .todo-list {
   list-style: none;
+  padding: 0;
 }
 
 .todo-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #fff;
+  background: var(--input-bg);
   padding: 18px 20px;
   border-radius: 8px;
   margin-bottom: 12px;
@@ -131,7 +210,7 @@ body {
 
 .todo-text {
   font-size: 1rem;
-  color: #333;
+  color: var(--input-text);
   flex: 1;
 }
 
@@ -183,10 +262,13 @@ body {
 
 .modal.active {
   display: flex;
+  background-color: var(--bg-color) 0.15;
+  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1.7px);
 }
 
 .modal-content {
-  background: #fff;
+  background: var(--input-bg);
   padding: 30px;
   border-radius: 12px;
   width: 90%;
@@ -196,15 +278,17 @@ body {
 
 .modal-content h3 {
   margin-bottom: 20px;
-  color: #333;
+  color: var(--text-color);
   font-size: 1.3rem;
 }
 
 .edit-input {
   margin-bottom: 10px;
+  color: var(--input-text);
   width: 100%;
   padding: 12px 15px;
-  border: 2px solid #e0e0e0;
+  background-color: var(--input-bg);
+  border: 2px solid var(--edit-input-border);
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
@@ -234,8 +318,8 @@ body {
 }
 
 .btn-cancel {
-  background: #e0e0e0;
-  color: #666;
+  background: var(--edit-input-border);
+  color: var(--input-text);
 }
 
 .btn-confirm {
