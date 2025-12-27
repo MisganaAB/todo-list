@@ -4,12 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous" 
     />
-    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="style.css">
 
     <title>My To Do List</title>
   </head>
@@ -24,7 +23,7 @@
           role="switch"
           id="switchCheckDefault"
         />
-        <label class="form-check-label" for="switchCheckDefault"
+        <label for="switchCheckDefault"
           class="dark">Darkmode</label
         >
       </div>
@@ -44,7 +43,6 @@
           placeholder="Due Date"
           class="todo-input"
         />
-<<<<<<< HEAD
         <select title="category" id="category" class="todo-input" required>
           <option value="" disabled selected>Choose Category</option>
           <option value="Personal">Personal</option>
@@ -53,17 +51,13 @@
         </select>
         
         <button id="saveBtn" class="save-btn" type="button">Save</button></div>
-=======
-        <input
-          type="text"
-          id="category"
-          placeholder="category"
-          class="todo-input"
-        />
-        <button id="saveBtn" class="save-btn" type="button">Save</button>
->>>>>>> f4815ac6beec9aa686395ed829f978ee9a303e02
       </div>
-      
+      <input type="button" id="addCatbtn" class="addbtn" onclick="show()" value="&ThickSpace;+ Add New Category">
+      <div id="newCatCon">
+        <input type="text" id="newCategoryId" placeholder="Add New Category" class="todo-input">
+        <button id="addCategoryBtn" class="save-btn" type="button">Add</button>
+        <input type="button" id="cancelbtn" class='addbtn' value="Cancel">
+      </div>
 
       <div class="stats">
         <div class="stat-item stat-done">
@@ -74,10 +68,6 @@
           <span>Todo On Progress : </span>
           <span id="progressCount">0</span>
         </div>
-      </div>
-      <div id="newCatCon">
-        <input type="text" id="newCategoryId" placeholder="Add New Category" class="todo-input">
-        <button id="addCategoryBtn" class="save-btn" type="button">Add</button>
       </div>
       <div class="category-filters">
         <button class="filter_btn active" data-filter="All">All</button>
@@ -110,11 +100,20 @@
         </div>
       </div>
     </div>
+    <!-- Delete Modal -->
+    <div class="deleteConf">
+      <div class="confContainer">
+        <h3>Are You Sure You want to delete the list?</h3>
+        <div class="modal-buttons">
+          <button id="cancelDelete" class="btn-cancel">Cancel</button>
+          <button id="confirmDelete" class="btn-confirm">Yes</button>
+        </div>
+      </div>
+    </div>
     </main>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous" defer
+      defer
     ></script>
     <script src="script.js"></script>
   </body>

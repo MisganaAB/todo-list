@@ -1,18 +1,11 @@
 {
   "todos": [
     {
-      "id": "18fd",
-      "title": "Hello",
-      "completed": false,
-      "category": "Personal",
-      "dueDate": "2024-12-25"
-    },
-    {
       "id": "349c",
       "title": "Call Halle",
       "completed": false,
       "category": "Work",
-      "dueDate": "2024-12-20"
+      "dueDate": "2025-12-25"
     },
     {
       "id": "b14f",
