@@ -20,6 +20,27 @@
       "completed": false,
       "dueDate": "2025-12-31",
       "category": "school"
+    },
+    {
+      "id": "5957",
+      "title": "Walk the cat",
+      "completed": false,
+      "dueDate": "2025-12-10",
+      "category": "Work"
+    },
+    {
+      "id": "200a",
+      "title": "read 42 rules of power",
+      "completed": false,
+      "dueDate": "2026-01-02",
+      "category": "self improvement"
+    },
+    {
+      "id": "7b52",
+      "title": "akljl kejaijdslk nekjaisdjl knea;vjo iea.,s,m,vn ljeoasl d;knnl;ajsdovl .,eaksjxvoi ;l.weasd.kv jli;ew las./d,vnkj owi;aslz.,cvm.k jewlaosdl; v.,cxmvlk jeoia;sldkvm.cm eojlk",
+      "completed": false,
+      "dueDate": "2026-01-09",
+      "category": "Work"
     }
   ]
 }
