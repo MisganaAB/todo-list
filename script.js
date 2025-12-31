@@ -122,6 +122,8 @@ async function addTodo(title, dueDate, category) {
 
 // Delete todo
 async function deleteTodo(id) {
+  let userChoice = window.confirm(`Confirm to delete to do list ${(await fetch(`${API_URL}/${id}, {method: "GET",}`)).json.title}?`);
+  if(!userChoice) return;
   try {
     const response = await fetch(`${API_URL}/${id}`, {
       method: "DELETE",
@@ -458,6 +460,8 @@ CloseBtn.onclick = () => {
 
 // Delete category
 function deleteCategory(category){
+  let userChoice = window.confirm(`Are You Sure you want to delete ${category} Category?`);
+  if(!userChoice) return;
   let categories = getCategoriesFromStorage();
   categories = categories.filter(cat => cat !== category);
   saveCategoriesToStorage(categories);
