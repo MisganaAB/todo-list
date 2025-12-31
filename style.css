@@ -199,6 +199,20 @@ main{
   background-color: var(--btn-bg);
 }
 
+.filter_btn:hover .delete_cat{
+  display: block;
+}
+
+.delete_cat{
+  background-color: transparent;
+  border: none;
+  display: none;
+  color: red;
+  font-size: inherit;
+  height: 100%;
+}
+
+
 /* Todo List Styles */
 .todo-list {
   list-style: none;

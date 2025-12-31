@@ -1,25 +1,32 @@
 {
   "todos": [
     {
-      "id": "349c",
-      "title": "Call Halle",
-      "completed": false,
-      "category": "Work",
-      "dueDate": "2025-12-25"
+      "id": "1e2c",
+      "title": "Study Web",
+      "completed": true,
+      "dueDate": "2025-12-31",
+      "category": "School"
     },
     {
-      "id": "b14f",
-      "title": "Buy Grocerry",
+      "id": "55d8",
+      "title": "Get paid",
       "completed": false,
       "dueDate": "2025-12-31",
+      "category": "Work"
+    },
+    {
+      "id": "5844",
+      "title": "Buy Grocerries",
+      "completed": false,
+      "dueDate": "2026-01-03",
       "category": "Shopping"
     },
     {
-      "id": "ee13",
-      "title": "Study Web",
+      "id": "954a",
+      "title": "Buy Grocerry",
       "completed": false,
-      "dueDate": "2025-12-31",
-      "category": "school"
+      "dueDate": "2026-01-01",
+      "category": "Shopping"
     }
   ]
 }

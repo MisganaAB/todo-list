@@ -31,6 +31,7 @@ async function fetchTodos() {
     const todos = await response.json();
     renderTodos(todos);
     updateStats(todos);
+    applyCurrentFilter();
   } catch (error) {
     console.error("Error fetching todos:", error);
   }
@@ -42,7 +43,7 @@ function renderTodos(todos) {
   todos.forEach((todo) => {
     const li = document.createElement("li");
     li.className = `todo-item ${todo.completed ? "completed" : ""}`;
-    li.dataset.id = todo.id;
+    li.dataset.id = capitalize(todo.id);
     li.dataset.category = todo.category;
     li.innerHTML = `
             <span class="todo-text">${escapeHtml(todo.title)}</span>
@@ -89,8 +90,10 @@ function escapeHtml(text) {
 
 // Add new todo
 async function addTodo(title, dueDate, category) {
-  if (!title.trim()) return;
-  if (!category.trim()) return;
+  if (!title.trim() || !category.trim() || valDAte(dueDate)){
+    alert("Please fill correct form of all fields");
+    return;
+  };
 
   try {
     const response = await fetch(API_URL, {
@@ -179,10 +182,18 @@ function closeEditModal() {
   currentEditId = null;
   editInput.value = "";
 }
+//validate Date
+function valDAte(dateString){
+  const date = new Date(dateString);
+  return !isNaN(date.getTime()) && date < new Date()-86000000;
+}
 
 // Save edited todo
 async function saveEdit() {
-  if (!currentEditId || !editInput.value.trim()) return;
+  if (!currentEditId || !editInput.value.trim() || valDAte(dateEditInput.value)) {
+    alert("Please fill in the todo form correctly.");
+    return;
+  };
 
   try {
     const response = await fetch(`${API_URL}/${currentEditId}`, {
@@ -216,7 +227,7 @@ saveBtn.addEventListener("click", () => {
 // Enter key to save
 todoInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
-    addTodo(todoInput.value);
+    addTodo(todoInput.value,dateInput.value, categoryInput.value);
   }
 });
 
@@ -303,6 +314,7 @@ let currentFilter = 'All';
 
 function applyFilter(filter){
     currentFilter = filter;
+    localStorage.setItem('currentFilter', currentFilter);
     const buttons = document.querySelectorAll('.filter_btn');
     buttons.forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
     const items = document.querySelectorAll('.todo-item');
@@ -311,7 +323,7 @@ function applyFilter(filter){
             it.style.display = '';
             return;
         }
-        it.style.display = (it.dataset.category === filter) ? '' : 'none';
+        it.style.display = (it.dataset.category.toLowerCase() === filter.toLowerCase()) ? '' : 'none';
     });
 } 
 
@@ -320,6 +332,7 @@ const btn = document.getElementById('addCategoryBtn');
 if (btn) {
   btn.addEventListener('click', addCategory);
 }
+
 
 function getCategoriesFromStorage(){
   const raw = localStorage.getItem('categories');
@@ -352,6 +365,11 @@ function renderCategories(){
       categoryInput.appendChild(opt);
       categoryEditInput.appendChild(opt.cloneNode(true));
     });
+    const uniqueCategories = getCategoriesFromStorage();
+    if (currentFilter !== 'All' && !uniqueCategories.includes(currentFilter)) {
+        currentFilter = 'All';
+    }
+
   }
 
   const btnContainer = document.querySelector('.category-filters');
@@ -370,19 +388,27 @@ function renderCategories(){
 
   unique.forEach(cat => {
     const b = document.createElement('button');
+    const delCatbtn = document.createElement('button');
+    delCatbtn.className = 'delete_cat';
+    delCatbtn.textContent = 'X';
+    delCatbtn.title = `Delete category ${capitalize(cat)}`;
     b.className = 'filter_btn';
     b.dataset.filter = cat;
     b.textContent = capitalize(cat);
     b.addEventListener('click', () => applyFilter(cat));
+    b.appendChild(delCatbtn);
+    delCatbtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      deleteCategory(cat);
+    });
     btnContainer.appendChild(b);
   });
 
-  applyFilter(currentFilter);
 }
 
 function addCategory(){
   const newCategoryInput = document.getElementById('newCategoryId');
-  const newCategory = newCategoryInput ? newCategoryInput.value.trim().toLowerCase() : '';
+  const newCategory = newCategoryInput ? capitalize(newCategoryInput.value.trim()) : '';
   if (newCategory === ''){
     alert('Category name cannot be empty');
     return;
@@ -397,13 +423,21 @@ function addCategory(){
   categories.push(newCategory);
   saveCategoriesToStorage(categories);
   renderCategories();
+  applyCurrentFilter();
   newCategoryInput.value = '';
   if (currentFilter === newCategory) applyFilter(currentFilter);
 }
 
 function capitalize(text){
-  return text[0].toUpperCase() + text.slice(1);
+  if(!text) return "";
+  return text[0].toUpperCase() + text.slice(1).toLowerCase();
 }
+
+document.getElementById('newCategoryId').addEventListener('keypress', (e) => {
+  if(e.key === 'Enter'){
+    addCategory();
+  }
+})
 
 // Display add new category
 const addCatbtn = document.getElementById('addCatbtn');
@@ -417,4 +451,23 @@ addCatbtn.onclick = () => {
 CloseBtn.onclick = () => {
   AddContainer.style.display = 'none';
   addCatbtn.style.display = 'block';
+}
+
+// Delete category
+function deleteCategory(category){
+  let categories = getCategoriesFromStorage();
+  categories = categories.filter(cat => cat !== category);
+  saveCategoriesToStorage(categories);
+  renderCategories();
+  applyCurrentFilter();
+}
+
+function applyCurrentFilter(){
+  let currentFilter = localStorage.getItem('currentFilter');
+  let categories = getCategoriesFromStorage();
+  if(currentFilter !== 'All' && !categories.includes(currentFilter)){
+    currentFilter = 'All';
+    localStorage.setItem('currentFilter', 'All');
+  }
+  applyFilter(currentFilter);
 }
