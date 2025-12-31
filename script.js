@@ -451,6 +451,7 @@ addCatbtn.onclick = () => {
   addCatbtn.style.display = 'none';
 }
 CloseBtn.onclick = () => {
+  document.getElementById('newCategoryId').value = '';
   AddContainer.style.display = 'none';
   addCatbtn.style.display = 'block';
 }
